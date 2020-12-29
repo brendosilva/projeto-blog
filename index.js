@@ -2,6 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./database/connection');
 
+//Routes
+const categorieController = require("./categories/categoriesControllers");
+const articlesController = require("./articles/articlesControllers");
+
 const app = express();
 const door = 3000;
 
@@ -23,8 +27,9 @@ connection
     }).catch((error) => {
         console.log(error);
     });
-
-
+    
+app.use("/", categorieController);
+app.use("/", articlesController);
 
 app.get("/", (req, res) => {
     res.render('index')
