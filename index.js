@@ -6,6 +6,10 @@ const connection = require('./database/connection');
 const categorieController = require("./categories/categoriesControllers");
 const articlesController = require("./articles/articlesControllers");
 
+//Models
+const Article = require('./articles/Article');
+const Category = require('./categories/categorie');
+
 const app = express();
 const door = 3000;
 
