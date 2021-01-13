@@ -1,0 +1,65 @@
+<%- include('../../partials/head.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
+
+        <div class="container">
+
+            <h2>
+                Artigos
+            </h2>
+            <a class="btn btn-success" href="/admin/articles/new"> Novo artigo </a>
+
+            <hr>
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Slug</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% articles.forEach((article)=> {%>
+                        <tr>
+                            <td>
+                                <%= article.id %>
+                            </td>
+                            <td>
+                                <%= article.title %>
+                            </td>
+                            <td>
+                                <%= article.slug %>
+                            </td>
+                            <td>
+                                <%= article.category.title %>
+                            </td>
+                            <td>
+                                <form method="POST" action="/articles/delete" style="display: inline;"
+                                    onsubmit="confirmarDelete(event, this)">
+                                    <input type="hidden" name="id" value="<%= article.id %>">
+                                    <button class="btn btn-danger">Remover</button>
+                                </form>
+
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        </div>
+
+        <%- include('../../partials/footer.ejs') %>
+
+            <script>
+                function confirmarDelete(event, form) {
+                    event.preventDefault(); // Evita comportamento padrão
+
+
+                    let decision = confirm("Realmente deseja remover este artigo? ");
+                    if (decision) {
+                        form.submit();
+                    }
+
+                }
+            </script>
