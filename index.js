@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 connection
     .authenticate()
     .then(() => {
-        console.log('connection sucess');
+       console.log('connection sucess');
     }).catch((error) => {
         console.log(error);
     });
@@ -55,7 +55,7 @@ app.get("/:slug", (req, res) => {
     Article.findOne({
         where: { slug: slug }
     }).then((article) => {
-        if (slug != undefined) {
+        if (article != undefined) {
 
             Category.findAll().then(categories => {
                 res.render("article", { article: article, categories: categories });
@@ -79,7 +79,7 @@ app.get("/category/:slug", (req, res) => {
     }).then((category)=> {
         if(category != undefined)
         {
-            Category.findAll({ order: [['id', 'DESC']] }).then(categories=>{
+            Category.findAll().then(categories=>{
                 res.render("index", { article: category.articles, categories: categories })
             })
         }
