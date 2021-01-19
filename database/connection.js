@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
 
-const db = 'projetoBlog';
-const user = 'root';
-const password = '';
+const db = 'blogguiando';
+const user = 'brendosilva';
+const password = '951753br';
 
 const connection = new Sequelize(db, user, password, {
-    host: 'localhost',
+    host: 'mysql742.umbler.com',
     dialect: 'mysql',
     timezone: "-03:00",
 });
