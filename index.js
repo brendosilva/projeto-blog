@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const connection = require('./database/connection');
 
 //Routes
@@ -17,6 +18,12 @@ const door = 3000;
 
 //view engine
 app.set('view engine', 'ejs');
+
+//Sessions
+app.use(session({
+    secret: "qualquercoisa",
+    cookie: { maxAge: 30000 }
+}));
 
 //static
 app.use(express.static('public'));
@@ -37,8 +44,6 @@ connection
 app.use("/", categorieController);
 app.use("/", articlesController);
 app.use("/", userController)
-
-
 
 app.get("/", (req, res) => {
 

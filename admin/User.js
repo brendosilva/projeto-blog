@@ -3,9 +3,8 @@ const connection = require('../database/connection');
 
 const User = connection.define('users', {
     email: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
+        type: Sequelize.TEXT,
+        allowNull: false,
     },
     password: {
         type: Sequelize.STRING,

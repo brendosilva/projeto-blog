@@ -1,0 +1,16 @@
+<%- include('../../partials/head.ejs') %>
+<%- include('../../partials/navbar.ejs') %>
+<div class="container">
+    <div class="card-header mt-5">
+        <h1>Ocorreu um erro no cadastro!!!</h1>
+    </div>
+    <div class="card-body">
+        <p>
+            Sentimos muito, mais este email não pode ser cadastrado, pois já existe em 
+            nossa base de dados.
+        </p>
+    </div>
+
+    <a href="/admin/users/create" class="btn btn-success">Tentar novamente</a>
+</div>
+<%- include('../../partials/footer.ejs') %>
