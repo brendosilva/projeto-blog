@@ -5,10 +5,12 @@ const connection = require('./database/connection');
 //Routes
 const categorieController = require("./categories/categoriesControllers");
 const articlesController = require("./articles/articlesControllers");
+const userController = require("./admin/userController");
 
 //Models
 const Article = require('./articles/Article');
 const Category = require('./categories/categorie');
+const User = require('./admin/User')
 
 const app = express();
 const door = 3000;
@@ -34,12 +36,13 @@ connection
 
 app.use("/", categorieController);
 app.use("/", articlesController);
+app.use("/", userController)
 
 
 
 app.get("/", (req, res) => {
 
-    Article.findAll({ order: [['id', 'DESC']] }).then((articles) => {
+    Article.findAll({ order: [['id', 'DESC']], limit: 4 }).then((articles) => {
 
         Category.findAll().then(categories => {
             res.render("index", { article: articles, categories: categories })

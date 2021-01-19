@@ -3,6 +3,7 @@ const router = express.Router();
 const slugify = require('slugify');
 const Article = require('./Article');
 const Category = require('../categories/categorie');
+const bodyParser = require("body-parser");
 
 
 router.get("/admin/articles", (req, res) => {
@@ -89,5 +90,40 @@ router.post("/articles/update", (req, res) => {
         res.redirect("/")
     })
 });
+
+router.get("/articles/pages/:num",(req, res)=>{
+    let pages = req.params.num;
+    let offset = 0;
+    if(isNaN(pages || pages == 1)){
+        offset = 0;
+    } else {
+        offset = (parseInt(pages) - 1) * 4;
+    }
+  
+
+    Article.findAndCountAll({
+        limit: 4, // Quantidade exibida por pagina.
+        offset: offset, // Quais serão exibidas..
+        order: [['id', 'DESC']]
+    }).then(articles => {
+        var next
+        if (offset + 4 >= articles.count){
+            next = false
+        }else {
+            next = true
+        }
+        let result = {
+            page: parseInt(pages),
+            next: next,
+            articles:articles
+        }
+
+        Category.findAll().then(categories => {
+            res.render("admin/articles/pages", { result: result, categories: categories})
+        })
+
+        //res.json(result)
+    })  
+})
 
 module.exports = router;
