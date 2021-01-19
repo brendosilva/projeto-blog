@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const User = require('./User');
 
+
 router.get("/admin/users", (req, res) => {
     
     
@@ -28,7 +29,7 @@ router.post("/users/create", (req, res) => {
                 email: email,
                 password: hash,
             }).then(() => {
-                res.redirect("/");
+                res.redirect("/login");
             }).catch(err => {
                 res.redirect("/");
             });
@@ -40,7 +41,10 @@ router.post("/users/create", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    res.render("admin/users/login");
+   
+        res.render("admin/users/login");
+   
+    
 });
 router.post("/authenticate", (req, res) => {
     let email = req.body.email;
@@ -54,7 +58,7 @@ router.post("/authenticate", (req, res) => {
                     id: user.id,
                     email: user.email
                 }
-                res.json(req.session.user)
+                res.redirect("/admin/articles")
             } else {
                 res.redirect("/login")
             }
@@ -63,5 +67,10 @@ router.post("/authenticate", (req, res) => {
         }
     });
 });
+
+router.get("/logout", (req, res) => {
+    req.session.user = undefined;
+    res.redirect("/login");
+})
 
 module.exports = router;

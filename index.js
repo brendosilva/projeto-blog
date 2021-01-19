@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const connection = require('./database/connection');
+const adminAuth = require("./middlewares/adminAuth")
 
 //Routes
 const categorieController = require("./categories/categoriesControllers");
@@ -22,7 +23,7 @@ app.set('view engine', 'ejs');
 //Sessions
 app.use(session({
     secret: "qualquercoisa",
-    cookie: { maxAge: 30000 }
+    cookie: { maxAge: 3600000 }
 }));
 
 //static
@@ -44,6 +45,18 @@ connection
 app.use("/", categorieController);
 app.use("/", articlesController);
 app.use("/", userController)
+
+app.get("/listagem-artigos", adminAuth, (req, res) => {
+
+    Article.findAll({ order: [['id', 'DESC']], limit: 4 }).then((articles) => {
+
+        Category.findAll().then(categories => {
+            res.render("admin/users/index", { article: articles, categories: categories })
+        });
+
+    });
+
+});
 
 app.get("/", (req, res) => {
 

@@ -6,7 +6,7 @@ function adminAuth(req, res, next)
     }
     else
     {
-        res.redirect("/");
+        res.redirect("/login");
     }
 }
 

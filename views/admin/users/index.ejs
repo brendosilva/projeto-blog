@@ -3,34 +3,27 @@
 
 <div class="container mt-5">
    
-    <h2>
-        Usuarios cadastrados.
-    </h2>
-    <p>Faça parte da nossa turma</p>
-    <a class="btn btn-success" href="/admin/users/create"> Novo Usuario </a>
-
-    <hr>
-
-    <table class="table table-striped">
-        <thead>
-            <tr>
+    <div class="jumbotron">
+        <h1 class="display-4">Bem vindo</h1>
+        <p class="lead">Simples blog de tecnologia, testando conhecimentos</p>
+        <hr class="my-4">
                 
-                <th>Email</th>
-                
-                
-            </tr>
-        </thead>
-        <tbody>
-           <% users.forEach( (user ) => {  %>
-                <tr>
-                    
-                    <td><%= user.email %></td>
-                    
-                  
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
+    </div>
+    <% article.forEach((article) => {%>
+        <div class="card-header">
+            <h2><%= article.title %></h2>
+        </div>
+        <div class="card-body">
+            <a href="/<%= article.slug %>" class="btn btn-success">Ler artigo</a>
+        </div>
+        <br>
+    <% }); %>
+    <div class="row">
+        <div class="col col-12">
+            <a href="/articles/pages/1" style="float:right"> Next >>> </a>
+        </div>
+        <hr>
+    </div>
 </div>
 
 <%- include('../../partials/footer.ejs') %>
